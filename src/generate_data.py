@@ -16,7 +16,9 @@ def generate(n: int = 8000) -> pd.DataFrame:
         ["month-to-month", "one_year", "two_year"], n, p=[0.55, 0.25, 0.20]
     )
     internet = RNG.choice(["dsl", "fiber", "none"], n, p=[0.35, 0.45, 0.20])
-    support_calls = RNG.poisson(1.2, n)
+    senior = RNG.choice([0, 1], n, p=[0.84, 0.16])
+    tech_support = RNG.choice(["yes", "no", "no_internet"], n, p=[0.30, 0.50, 0.20])
+    online_security = RNG.choice(["yes", "no", "no_internet"], n, p=[0.28, 0.52, 0.20])
     payment = RNG.choice(
         ["electronic_check", "mailed_check", "bank_transfer", "credit_card"], n
     )
@@ -27,7 +29,9 @@ def generate(n: int = 8000) -> pd.DataFrame:
         -2.2
         - 0.035 * tenure
         + 0.018 * monthly
-        + 0.45 * support_calls
+        + 0.35 * senior
+        + np.where(tech_support == "no", 0.5, 0)
+        + np.where(online_security == "no", 0.4, 0)
         + np.where(contract == "month-to-month", 1.1, 0)
         + np.where(contract == "two_year", -0.9, 0)
         + np.where(internet == "fiber", 0.5, 0)
@@ -43,7 +47,9 @@ def generate(n: int = 8000) -> pd.DataFrame:
             "total_charges": np.round(tenure * monthly * RNG.uniform(0.9, 1.1, n), 2),
             "contract": contract,
             "internet_service": internet,
-            "support_calls": support_calls,
+            "senior_citizen": senior,
+            "tech_support": tech_support,
+            "online_security": online_security,
             "payment_method": payment,
             "paperless_billing": paperless,
             "churn": churn,

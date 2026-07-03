@@ -30,11 +30,13 @@ def test_api_predict_and_validation():
         "tenure_months": 3,
         "monthly_charges": 95.0,
         "total_charges": 280.0,
-        "support_calls": 4,
+        "senior_citizen": 0,
         "contract": "month-to-month",
         "internet_service": "fiber",
         "payment_method": "electronic_check",
         "paperless_billing": 1,
+        "tech_support": "no",
+        "online_security": "no",
     }
     res = client.post("/predict", json=payload)
     assert res.status_code == 200

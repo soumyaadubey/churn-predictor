@@ -1,17 +1,17 @@
 {
-  "best_model": "logistic_regression",
+  "best_model": "gradient_boosting",
   "metrics": {
     "logistic_regression": {
-      "roc_auc": 0.7866,
-      "pr_auc": 0.6509,
-      "f1": 0.6185
+      "roc_auc": 0.8401,
+      "pr_auc": 0.636,
+      "f1": 0.6166
     },
     "gradient_boosting": {
-      "roc_auc": 0.7798,
-      "pr_auc": 0.6399,
-      "f1": 0.5534
+      "roc_auc": 0.8434,
+      "pr_auc": 0.6605,
+      "f1": 0.5929
     }
   },
-  "test_size": 1600,
-  "churn_rate": 0.337
+  "test_size": 1409,
+  "churn_rate": 0.2654
 }

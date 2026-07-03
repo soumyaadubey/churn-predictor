@@ -20,13 +20,15 @@ class Customer(BaseModel):
     tenure_months: int = Field(ge=0, le=100)
     monthly_charges: float = Field(gt=0)
     total_charges: float = Field(ge=0)
-    support_calls: int = Field(ge=0)
+    senior_citizen: Literal[0, 1]
     contract: Literal["month-to-month", "one_year", "two_year"]
     internet_service: Literal["dsl", "fiber", "none"]
     payment_method: Literal[
         "electronic_check", "mailed_check", "bank_transfer", "credit_card"
     ]
     paperless_billing: Literal[0, 1]
+    tech_support: Literal["yes", "no", "no_internet"]
+    online_security: Literal["yes", "no", "no_internet"]
 
 
 class Prediction(BaseModel):

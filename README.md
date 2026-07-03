@@ -1,6 +1,6 @@
 # Customer Churn Prediction System
 
-![CI](https://github.com/soumyaadubey/churn-predictor/actions/workflows/ci.yml/badge.svg)
+![CI](https://github.com/YOUR_USERNAME/churn-predictor/actions/workflows/ci.yml/badge.svg)
 
 End-to-end machine learning system that predicts which customers are likely to cancel their subscription, served as a production-style REST API with automated tests and Docker deployment.
 
@@ -8,14 +8,14 @@ End-to-end machine learning system that predicts which customers are likely to c
 
 Churn prediction is one of the most common real-world ML problems — retaining a customer is far cheaper than acquiring a new one. This project goes beyond a notebook: it covers the full ML engineering lifecycle from data to a deployable, tested service.
 
-## Results (held-out test set, n=1,600)
+## Results — real IBM Telco dataset (held-out test set, n=1,409)
 
 | Model | ROC-AUC | PR-AUC | F1 |
 |---|---|---|---|
-| **Logistic Regression (balanced)** | **0.787** | **0.651** | **0.619** |
-| Gradient Boosting | 0.780 | 0.640 | 0.553 |
+| **Gradient Boosting** | **0.843** | **0.661** | **0.593** |
+| Logistic Regression (balanced) | 0.840 | 0.636 | 0.617 |
 
-Class imbalance (~34% churn) is handled with class weighting, and PR-AUC is reported alongside ROC-AUC since it better reflects performance on the minority class.
+Trained on the IBM Telco Customer Churn dataset (7,043 real customers, ~27% churn). PR-AUC is reported alongside ROC-AUC since it better reflects performance on the imbalanced minority class.
 
 ## Architecture
 
@@ -35,7 +35,14 @@ Key engineering decisions:
 
 ```bash
 pip install -r requirements.txt
-python src/generate_data.py   # or drop a real telco CSV into data/
+
+# Real data (recommended):
+curl -sL -o data/telco_raw.csv https://raw.githubusercontent.com/IBM/telco-customer-churn-on-icp4d/master/data/Telco-Customer-Churn.csv
+python src/prepare_telco.py data/telco_raw.csv
+
+# Or synthetic fallback (used by CI):
+# python src/generate_data.py
+
 python src/train.py
 uvicorn api.main:app --reload
 ```
@@ -46,7 +53,7 @@ Example request:
 ```bash
 curl -X POST localhost:8000/predict -H "Content-Type: application/json" -d '{
   "tenure_months": 3, "monthly_charges": 95.0, "total_charges": 280.0,
-  "support_calls": 4, "contract": "month-to-month",
+  "senior_citizen": 0,\n  "tech_support": "no", "online_security": "no", "contract": "month-to-month",
   "internet_service": "fiber", "payment_method": "electronic_check",
   "paperless_billing": 1
 }'
@@ -68,7 +75,6 @@ docker run -p 8000:8000 churn-api
 
 ## Extending it
 
-- Swap the synthetic generator for the IBM Telco Churn dataset (Kaggle)
 - Add SHAP explanations to the API response
 - Add a GitHub Actions workflow running pytest on every push
 - Track experiments with MLflow

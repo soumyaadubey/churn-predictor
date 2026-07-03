@@ -22,8 +22,16 @@ from sklearn.model_selection import train_test_split
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
 
-NUMERIC = ["tenure_months", "monthly_charges", "total_charges", "support_calls"]
-CATEGORICAL = ["contract", "internet_service", "payment_method", "paperless_billing"]
+NUMERIC = ["tenure_months", "monthly_charges", "total_charges"]
+CATEGORICAL = [
+    "contract",
+    "internet_service",
+    "payment_method",
+    "paperless_billing",
+    "senior_citizen",
+    "tech_support",
+    "online_security",
+]
 TARGET = "churn"
 
 
