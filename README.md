@@ -1,6 +1,6 @@
 # Customer Churn Prediction System
 
-![CI](https://github.com/YOUR_USERNAME/churn-predictor/actions/workflows/ci.yml/badge.svg)
+![CI](https://github.com/soumyaadubey/churn-predictor/actions/workflows/ci.yml/badge.svg)
 
 End-to-end machine learning system that predicts which customers are likely to cancel their subscription, served as a production-style REST API with automated tests and Docker deployment.
 
