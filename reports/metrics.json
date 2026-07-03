@@ -1,0 +1,17 @@
+{
+  "best_model": "logistic_regression",
+  "metrics": {
+    "logistic_regression": {
+      "roc_auc": 0.7866,
+      "pr_auc": 0.6509,
+      "f1": 0.6185
+    },
+    "gradient_boosting": {
+      "roc_auc": 0.7798,
+      "pr_auc": 0.6399,
+      "f1": 0.5534
+    }
+  },
+  "test_size": 1600,
+  "churn_rate": 0.337
+}
